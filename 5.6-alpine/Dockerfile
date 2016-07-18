@@ -1,6 +1,6 @@
 FROM java:8-alpine
 
-MAINTAINER David Gageot <david.gageot@sonarsource.com>
+MAINTAINER zhouyq <zhouyq@goodrain.com>
 
 ENV SONAR_VERSION=5.6 \
     SONARQUBE_HOME=/opt/sonarqube
@@ -42,5 +42,5 @@ RUN set -x \
 VOLUME ["/opt/sonarqube/data", "/opt/sonarqube/extensions"]
 
 WORKDIR /opt/sonarqube
-COPY run.sh /opt/sonarqube/bin/
+COPY 5.6-alpine/run.sh /opt/sonarqube/bin/
 ENTRYPOINT ["./bin/run.sh"]
