@@ -39,6 +39,9 @@ case ${MEMORY_SIZE:-small} in
        ;;
 esac
 
+# change owner
+chown sonar.sonar /opt/sonarqube -R
+
 if [ "${1:0:1}" != '-' ]; then
   exec "$@"
 fi
