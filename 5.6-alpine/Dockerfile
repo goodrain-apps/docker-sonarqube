@@ -3,12 +3,7 @@ FROM java:8-alpine
 MAINTAINER David Gageot <david.gageot@sonarsource.com>
 
 ENV SONAR_VERSION=5.6 \
-    SONARQUBE_HOME=/opt/sonarqube \
-    # Database configuration
-    # Defaults to using H2
-    SONARQUBE_JDBC_USERNAME=sonar \
-    SONARQUBE_JDBC_PASSWORD=sonar \
-    SONARQUBE_JDBC_URL=
+    SONARQUBE_HOME=/opt/sonarqube
 
 # Http port
 EXPOSE 9000
@@ -32,8 +27,8 @@ RUN set -x \
     && rm sonarqube.zip* \
     && rm -rf $SONARQUBE_HOME/bin/*
 
-VOLUME ["$SONARQUBE_HOME/data", "$SONARQUBE_HOME/extensions"]
+VOLUME ["/opt/sonarqube/data", "/opt/sonarqube/extensions"]
 
-WORKDIR $SONARQUBE_HOME
-COPY run.sh $SONARQUBE_HOME/bin/
+WORKDIR /opt/sonarqube
+COPY run.sh /opt/sonarqube/bin/
 ENTRYPOINT ["./bin/run.sh"]
