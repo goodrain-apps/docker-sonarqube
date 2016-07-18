@@ -5,11 +5,23 @@ MAINTAINER David Gageot <david.gageot@sonarsource.com>
 ENV SONAR_VERSION=5.6 \
     SONARQUBE_HOME=/opt/sonarqube
 
+# timezone and libc
+RUN apk add --no-cache tzdata libc6-compat && \
+       ln -s /lib /lib64 && \
+       cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+       echo "Asia/Shanghai" >  /etc/timezone && \
+       date && apk del --no-cache tzdata
+
+# add sonar user
+RUN sed -i -r 's/nofiles/sonar/' /etc/group && \
+    adduser -u 200 -D -S -G sonar sonar
+
 # Http port
 EXPOSE 9000
 
 RUN set -x \
-    && apk add --no-cache gnupg unzip curl \
+    && apk add --no-cache gnupg unzip curl wget bash su-exec \
+    && sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd \
 
     # pub   2048R/D26468DE 2015-05-25
     #       Key fingerprint = F118 2E81 C792 9289 21DB  CAB4 CFCA 4A29 D264 68DE
