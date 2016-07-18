@@ -9,7 +9,7 @@ rewriteBatchedStatements=true&\
 useConfigs=maxPerformance"
 
 SONARQUBE_JDBC_USERNAME=${MYSQL_USER}
-$SONARQUBE_JDBC_PASSWORD=${MYSQL_PASS}
+SONARQUBE_JDBC_PASSWORD=${MYSQL_PASS}
 
 # setting $SONARQUBE_WEB_JVM_OPTS
 case ${MEMORY_SIZE:-small} in
